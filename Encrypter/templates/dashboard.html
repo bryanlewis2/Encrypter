@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <form action='/account_settings'>
+        <input type="submit" value="Account Settings" /><br /><br />
+    </form>
+    <form action="/imageuploadpage">
+
+    </form>
+    <form action="/logout">
+        <input type="submit" value="Log Out" /><br /><br />
+    </form>
+    <h1>
+        Welcome
+        {% for e in mylist %}
+        {{e}}
+        {% endfor %}
+    </h1>
+</body>
+</html>
