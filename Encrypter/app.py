@@ -1,9 +1,11 @@
+from os import waitpid
 from cryptography import fernet
 from flask import Flask, redirect, url_for, render_template, request, flash, Response
 from flask.helpers import make_response
 from flask.templating import render_template_string
 import cx_Oracle
 import hashlib
+import base64
 import bcrypt
 from cryptography.fernet import Fernet
 from flask_wtf import FlaskForm
@@ -21,10 +23,6 @@ app.config['SECRET_KEY'] = '757-551-518'
 # Flask route decorators map / and /hello to the hello function.
 # To add other resources, create functions that generate the page contents
 # and add decorators to define the appropriate resource locators for them.
-
-#class RegisterForm(FlaskForm):
-#    first_name = StringField()
-
 
 
 @app.route('/')
@@ -45,6 +43,14 @@ def loginpage():
 @app.route('/imageuploadpage')
 def imguploadpade():
     return render_template('imageupload.html')
+
+@app.route('/account_settings')
+def accountsettings():
+    return render_template('accountsettings.html')
+
+@app.route('/changepasswordpage')
+def changepasswordpage():
+    return render_template('changepassword.html')
 
 @app.route('/dashboardpage')
 def dashboardpage():
@@ -87,7 +93,8 @@ def signup():
     except:
         return "An Error Ocurred"
     
-    return "Successful"
+    resp = make_response(redirect('/loginpage'))
+    return resp
 
     
 @app.route('/login', methods = ['POST'])
@@ -140,9 +147,30 @@ def logout():
     except:
         return "An Error Ocurred"
 
+@app.route('/deleteaccount')
+def deleteaccount():
+    email = request.cookies.get('email_id')
+    if email == None:
+        return make_response(redirect('/loginpage'))
+    else:
+        try:
+            connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
+            cursor = connect.cursor()
+            execute = """DELETE * FROM User_Info WHERE email = :email"""
+            cursor.execute(execute, {'email':email})
+            connect.commit()
+        except:
+            return "An Error Ocurred"
+
 @app.route('/imageupload' , methods = ['POST'])
 def imageupload():
-    image = request.form.get("uploaded_image")
+    try:
+        uploaded_image = request.files['uploaded_image']
+#        open(uploaded_image, "rb")
+        b64string = base64.b64encode(uploaded_image.read())
+        return b64string
+    except:
+        return "An Error Ocurred"
         
 
 

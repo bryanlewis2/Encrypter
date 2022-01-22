@@ -36,6 +36,8 @@
     <Folder Include="templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="templates\accountsettings.html" />
+    <Content Include="templates\changepassword.html" />
     <Content Include="templates\dashboard.html" />
     <Content Include="templates\imageupload.html" />
     <Content Include="templates\imgpin.html" />

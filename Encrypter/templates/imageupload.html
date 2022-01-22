@@ -10,8 +10,8 @@
 </head>
 <body>
     <h3>Upload Image</h3>
-    <form action="/imageupload" method="post">
-        <input type="file" accept="image/*" name="uploaded_image" /><br /><br />
+    <form action="/imageupload" method="post" enctype="multipart/form-data">
+        <input type="file" name="uploaded_image" /><br /><br />
         <input type="submit" value="Upload" />
 
     </form>
