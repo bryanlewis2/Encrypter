@@ -168,6 +168,11 @@ def imageupload():
         uploaded_image = request.files['uploaded_image']
 #        open(uploaded_image, "rb")
         b64string = base64.b64encode(uploaded_image.read())
+        encryption_pin = request.form.getlist('check')
+        if encryption_pin == ['default']:
+            img_pass = request.cookies.get('img_pass')
+        else:
+            img_pass = request.form.get('encryption_key')
         return b64string
     except:
         return "An Error Ocurred"

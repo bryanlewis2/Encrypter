@@ -11,9 +11,26 @@
 <body>
     <h3>Upload Image</h3>
     <form action="/imageupload" method="post" enctype="multipart/form-data">
+        <label id="image_upload">Upload an Image</label><br /><br />
         <input type="file" name="uploaded_image" /><br /><br />
+        
+        <label id="default_pin">Use Default 4-Digit Pin?</label><br />
+        <input type="checkbox" id="myCheck" name="check" value="default" onclick="addbox();" /><br /><br />
+        
+        <input type="text" id="text_box" name="encryption_key" /><br /><br />
+        
         <input type="submit" value="Upload" />
 
     </form>
+    <script>
+        function addbox() {
+            if (document.getElementById('myCheck').checked) {
+                document.getElementById('text_box').style.display = 'none';
+            }
+            else {
+                document.getElementById('text_box').style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
