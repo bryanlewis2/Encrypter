@@ -7,6 +7,7 @@ import cx_Oracle
 import hashlib
 import base64
 import bcrypt
+from Crypto.Cipher import AES
 from cryptography.fernet import Fernet
 from flask_wtf import FlaskForm
 from werkzeug.wrappers import response 
@@ -173,6 +174,18 @@ def imageupload():
             img_pass = request.cookies.get('img_pass')
         else:
             img_pass = request.form.get('encryption_key')
+        image_name = request.form.get('image_name')
+
+        reverse_img_pass = img_pass[::-1]
+        
+        b64string = b64string.decode("utf-8")
+        #image_string = img_pass + b64string + reverse_img_pass
+        checksum = img_pass + reverse_img_pass
+        checksum = checksum + img_pass + reverse_img_pass
+        image_string = checksum + b64string
+
+        return image_string
+
         return b64string
     except:
         return "An Error Ocurred"
