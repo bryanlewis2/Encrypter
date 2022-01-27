@@ -23,6 +23,24 @@
         {% for e in mylist %}
         {{e}}
         {% endfor %}
-    </h1>
+    </h1><br /><br />
+    <table>
+        <tr>
+            <th>Image Name</th>
+            <th>Upload Date</th>
+            <th>Controls</th>
+
+        </tr>
+        {% for r in result %}
+        <tr>
+            <td>{{ r[0] }}</td>
+            <td>{{ r[1] }}</td>
+            <td>
+                <a href="/downloadimage/{{r[1]}}" class="btn btn-primary">Download</a>
+                <a href="/deleteimage/{{r[1]}}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

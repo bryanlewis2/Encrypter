@@ -1,4 +1,5 @@
 from os import waitpid
+import re
 from cryptography import fernet
 from flask import Flask, redirect, url_for, render_template, request, flash, Response
 from flask.helpers import make_response
@@ -7,6 +8,7 @@ import cx_Oracle
 import hashlib
 import base64
 import bcrypt
+from datetime import datetime
 from Crypto.Cipher import AES
 from cryptography.fernet import Fernet
 from flask_wtf import FlaskForm
@@ -57,12 +59,22 @@ def changepasswordpage():
 def dashboardpage():
     first_name = request.cookies.get('first_name')
     last_name = request.cookies.get('last_name')
-    if first_name == None or last_name == None:
+    email = request.cookies.get('email_id')
+    if first_name == None or last_name == None or email == None:
         resp = make_response(redirect('/loginpage'))
         return resp
     else:
+        #Get First Name and Last Name to display on the webpage
         mylist = [first_name, last_name]
-        return render_template('dashboard.html', mylist=mylist)
+
+        #Get Images from the database
+        connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
+        cursor = connect.cursor()
+        execute = """SELECT Img_Name, Upload_Date FROM User_Images WHERE email = :email ORDER BY upload_date ASC"""
+        cursor.execute(execute, {'email':email})
+        result = cursor.fetchall()
+
+        return render_template('dashboard.html', mylist=mylist, result = result)
 
 @app.route('/signup' , methods = ['POST'])
 def signup():
@@ -160,8 +172,24 @@ def deleteaccount():
             execute = """DELETE * FROM User_Info WHERE email = :email"""
             cursor.execute(execute, {'email':email})
             connect.commit()
+            execute = """DELETE * FROM User_Images WHERE email = :email"""
+            cursor.execute(execute, {'email':email})
+            connect.commit()
         except:
             return "An Error Ocurred"
+
+@app.route('/deleteimage/<img_date>', methods = ['GET' , 'POST'])
+def deleteimage(img_date):
+    try:
+        email = request.cookies.get('email_id')
+        connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
+        cursor = connect.cursor()
+        execute = """DELETE * FROM User_Images WHERE upload_date = :upload_date and email = :email"""
+        cursor.execute(execute, {'upload_date':img_date, 'email':email})
+        connect.commit()
+    except:
+        return "An Error Ocurred"
+
 
 @app.route('/imageupload' , methods = ['POST'])
 def imageupload():
@@ -175,14 +203,25 @@ def imageupload():
         else:
             img_pass = request.form.get('encryption_key')
         image_name = request.form.get('image_name')
+        
+        email = request.cookies.get('email_id')
+
+        date = datetime.now()
 
         reverse_img_pass = img_pass[::-1]
         
         b64string = b64string.decode("utf-8")
         #image_string = img_pass + b64string + reverse_img_pass
         checksum = img_pass + reverse_img_pass
-        checksum = checksum + img_pass + reverse_img_pass
+        checksum = hashlib.md5(checksum.encode())
+        checksum = checksum.hexdigest()
         image_string = checksum + b64string
+
+        connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
+        cursor = connect.cursor()
+        execute = """INSERT INTO User_Images VALUES (:email, :img_name, :encrypted_string, :upload_date)"""
+        cursor.execute(execute, {'email':email, 'img_name':image_name, 'encrypted_string':image_string, 'upload_date':date})
+        connect.commit()
 
         return image_string
 
