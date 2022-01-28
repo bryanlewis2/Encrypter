@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        function getimagepass() {
+            document.getElementById('encryption_key').style.display = 'block';
+        }
+    </script>
 </head>
 <body>
     <form action='/account_settings'>
@@ -26,7 +32,7 @@
     </h1><br /><br />
     <table>
         <tr>
-            <th>Image ID</th>
+            <th hidden>Image ID</th>
             <th>Image Name</th>
             <th>Upload Date</th>
             <th>Controls</th>
@@ -34,15 +40,18 @@
         </tr>
         {% for r in result %}
         <tr>
-            <td>{{ r[0] }}</td>
+            <td hidden>{{ r[0] }}</td>
             <td>{{ r[1] }}</td>
             <td>{{ r[2] }}</td>
             <td>
-                <a href="/downloadimage/{{r[0]}}" class="btn btn-primary">Download</a>
-                <a href="/deleteimage/{{r[0]}}" class="btn btn-danger">Delete</a>
+                <a href="/downloadimage/{{r[0]}}" class="btn btn-success"  onclick="getimgpass();">Download</a>&nbsp;&nbsp;
+                <a href="/deleteimage/{{r[0]}}" class="btn btn-danger"">Delete</a><br />
+                <label id="encryption_key" hidden>Enter 4-Digit Image Key</label>
+                <input type="number" name="encryption_key" maxlength="4" required hidden />
             </td>
         </tr>
         {% endfor %}
     </table>
 </body>
+    
 </html>

@@ -170,14 +170,30 @@ def deleteaccount():
         try:
             connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
             cursor = connect.cursor()
-            execute = """DELETE * FROM User_Info WHERE email = :email"""
+            execute = """DELETE FROM User_Info WHERE email = :email"""
             cursor.execute(execute, {'email':email})
             connect.commit()
-            execute = """DELETE * FROM User_Images WHERE email = :email"""
+            execute = """DELETE FROM User_Images WHERE email = :email"""
             cursor.execute(execute, {'email':email})
             connect.commit()
         except:
             return "An Error Ocurred"
+
+@app.route('/changepassword')
+def changepassowrd():
+    email = request.cookies.get('email_id')
+    if email == None:
+        return make_response(redirect('/loginpage'))
+    else:
+        try:
+            connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
+            cursor = connect.cursor()
+            execute = """SELECT password FROM User_Info WHERE email = :email"""
+            cursor.execute(execute, {'email':email})
+            result = cursor.fetchall()
+        except:
+            return "An Error Ocurred"
+
 
 @app.route('/deleteimage/<image_id>', methods = ['GET' , 'POST'])
 def deleteimage(image_id):
@@ -192,6 +208,18 @@ def deleteimage(image_id):
     except:
         return "An Error Ocurred"
 
+@app.route('/downloadimage/<image_id>' , methods = ['GET' , 'POST'])
+def downloadimage(image_id):
+    try:
+        return "Download Image"
+        email = request.cookies.get('email_id')
+        connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
+        cursor = connect.cursor()
+        execute = """SELECT * FROM User_Images WHERE image_id = :image_id and email = :email"""
+        cursor.execute(execute, {'image_id':image_id, 'email':email})
+
+    except:
+        return "An Error Ocurred"
 
 @app.route('/imageupload' , methods = ['POST'])
 def imageupload():
