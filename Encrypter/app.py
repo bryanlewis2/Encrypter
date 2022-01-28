@@ -3,6 +3,7 @@ import re
 from cryptography import fernet
 from flask import Flask, redirect, url_for, render_template, request, flash, Response
 from flask.helpers import make_response
+from flask.sessions import NullSession
 from flask.templating import render_template_string
 import cx_Oracle
 import hashlib
@@ -70,7 +71,7 @@ def dashboardpage():
         #Get Images from the database
         connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
         cursor = connect.cursor()
-        execute = """SELECT Img_Name, Upload_Date FROM User_Images WHERE email = :email ORDER BY upload_date ASC"""
+        execute = """SELECT Image_Id,Img_Name, Upload_Date FROM User_Images WHERE email = :email ORDER BY upload_date ASC"""
         cursor.execute(execute, {'email':email})
         result = cursor.fetchall()
 
@@ -178,15 +179,16 @@ def deleteaccount():
         except:
             return "An Error Ocurred"
 
-@app.route('/deleteimage/<img_date>', methods = ['GET' , 'POST'])
-def deleteimage(img_date):
+@app.route('/deleteimage/<image_id>', methods = ['GET' , 'POST'])
+def deleteimage(image_id):
     try:
         email = request.cookies.get('email_id')
         connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
         cursor = connect.cursor()
-        execute = """DELETE * FROM User_Images WHERE upload_date = :upload_date and email = :email"""
-        cursor.execute(execute, {'upload_date':img_date, 'email':email})
+        execute = """DELETE FROM User_Images WHERE image_id = :image_id and email = :email"""
+        cursor.execute(execute, {'image_id':image_id, 'email':email})
         connect.commit()
+        return make_response(redirect('/dashboardpage'))
     except:
         return "An Error Ocurred"
 
@@ -217,15 +219,15 @@ def imageupload():
         checksum = checksum.hexdigest()
         image_string = checksum + b64string
 
+        image_id = ''
         connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
         cursor = connect.cursor()
-        execute = """INSERT INTO User_Images VALUES (:email, :img_name, :encrypted_string, :upload_date)"""
-        cursor.execute(execute, {'email':email, 'img_name':image_name, 'encrypted_string':image_string, 'upload_date':date})
+        execute = """INSERT INTO User_Images VALUES (:image_id, :email, :img_name, :encrypted_string, :upload_date)"""
+        cursor.execute(execute, {'image_id':image_id,'email':email, 'img_name':image_name, 'encrypted_string':image_string, 'upload_date':date})
         connect.commit()
 
-        return image_string
+        return make_response(redirect('/dashboardpage'))
 
-        return b64string
     except:
         return "An Error Ocurred"
         
