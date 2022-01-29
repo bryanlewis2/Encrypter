@@ -56,6 +56,10 @@ def accountsettings():
 def changepasswordpage():
     return render_template('changepassword.html')
 
+@app.route('/downloadimagepage/<image_id>')
+def downloadimagepage(image_id):
+    return render_template('imagepasswordpage.html', image_id = image_id)
+
 @app.route('/dashboardpage')
 def dashboardpage():
     first_name = request.cookies.get('first_name')
@@ -208,15 +212,20 @@ def deleteimage(image_id):
     except:
         return "An Error Ocurred"
 
-@app.route('/downloadimage/<image_id>' , methods = ['GET' , 'POST'])
-def downloadimage(image_id):
+@app.route('/downloadimage' , methods = ['POST'])
+def downloadimage():
     try:
-        return "Download Image"
+        #return "Download Image"
+        image_id = request.form.get('image_id')
+        image_pass = request.form.get('image_pass')
+
         email = request.cookies.get('email_id')
         connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
         cursor = connect.cursor()
         execute = """SELECT * FROM User_Images WHERE image_id = :image_id and email = :email"""
         cursor.execute(execute, {'image_id':image_id, 'email':email})
+
+        return "Download Image"
 
     except:
         return "An Error Ocurred"
