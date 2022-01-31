@@ -226,10 +226,7 @@ def downloadimage():
         execute = """SELECT encrypted_string FROM User_Images WHERE image_id = :image_id and email = :email"""
         cursor.execute(execute, {'image_id':image_id, 'email':email})
         result = cursor.fetchone()
-        #result = [result]
-        #result = result.replace('()', '')
-        for item in result:
-            result = result + item
+
         reverse_image_pass = image_pass[::-1]
         checksum = image_pass + reverse_image_pass
         checksum = hashlib.md5(checksum.encode())
