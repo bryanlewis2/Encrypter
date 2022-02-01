@@ -2,7 +2,7 @@ from os import waitpid
 import re
 from cryptography import fernet
 from flask import Flask, redirect, url_for, render_template, request, flash, Response
-from flask.helpers import make_response
+from flask.helpers import make_response, send_file
 from flask.sessions import NullSession
 from flask.templating import render_template_string
 import cx_Oracle
@@ -60,6 +60,10 @@ def changepasswordpage():
 @app.route('/downloadimagepage/<image_id>')
 def downloadimagepage(image_id):
     return render_template('imagepasswordpage.html', image_id = image_id)
+
+@app.route('/viewimagepage/<image_id>')
+def viewimagepage(image_id):
+    return render_template('viewimagepasswordpage.html', image_id = image_id)
 
 @app.route('/dashboardpage')
 def dashboardpage():
@@ -213,6 +217,37 @@ def deleteimage(image_id):
     except:
         return "An Error Ocurred"
 
+@app.route('/viewimage' , methods = ['POST'])
+def viewimage():
+    try:
+        image_id = request.form.get('image_id')
+        image_pass = request.form.get('image_pass')
+
+        email = request.cookies.get('email_id')
+        connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
+        cursor = connect.cursor()
+        execute = """SELECT encrypted_string FROM User_Images WHERE image_id = :image_id and email = :email"""
+        cursor.execute(execute, {'image_id':image_id, 'email':email})
+        result = cursor.fetchone()
+        
+        for item in result:
+            str = ''
+            str = str + item
+        
+        reverse_image_pass = image_pass[::-1]
+        checksum = image_pass + reverse_image_pass
+        checksum = hashlib.md5(checksum.encode())
+        checksum = checksum.hexdigest()
+
+        x = re.search(checksum, str)
+
+        if(x!= None):
+            image_string = str.replace(checksum, '')
+            imagedata = base64.b64decode(image_string)
+            return render_template('viewimage.html' , image_string = image_string)
+    except:
+        return "An Error Ocurred"
+
 @app.route('/downloadimage' , methods = ['POST'])
 def downloadimage():
     try:
@@ -226,16 +261,21 @@ def downloadimage():
         execute = """SELECT encrypted_string FROM User_Images WHERE image_id = :image_id and email = :email"""
         cursor.execute(execute, {'image_id':image_id, 'email':email})
         result = cursor.fetchone()
-
+        for item in result:
+            str = ''
+            str = str + item
         reverse_image_pass = image_pass[::-1]
         checksum = image_pass + reverse_image_pass
         checksum = hashlib.md5(checksum.encode())
         checksum = checksum.hexdigest()
 
-        x = re.search(checksum, result)
+        x = re.search(checksum, str)
 
         if(x!= None):
-            #s = s.replace(checksum, '')
+            image_string = str.replace(checksum, '')
+            imagedata = base64.b64decode(image_string)
+          
+            return send_file(imagedata , as_attachment=True)
             return "String Validated"
         else:
             return "Wrong Password"
@@ -259,7 +299,7 @@ def imageupload():
         else:
             img_pass = request.form.get('encryption_key')
         image_name = request.form.get('image_name')
-        
+          
         email = request.cookies.get('email_id')
 
         date = datetime.now()

@@ -44,8 +44,9 @@
             <td>{{ r[1] }}</td>
             <td>{{ r[2] }}</td>
             <td>
-                <a href="/downloadimagepage/{{r[0]}}" class="btn btn-success"  onclick="getimgpass();">Download</a>&nbsp;&nbsp;
-                <a href="/deleteimage/{{r[0]}}" class="btn btn-danger"">Delete</a><br />
+                <a href="/downloadimagepage/{{r[0]}}" class="btn btn-success" onclick="getimgpass();">Download</a>&nbsp;&nbsp;
+                <a href="/viewimagepage/{{r[0]}}" class="btn btn-primary" ">View</a>&nbsp;&nbsp;
+                <a href="/deleteimage/{{r[0]}}" class="btn btn-danger" ">Delete</a><br />
                 <label id="encryption_key" hidden>Enter 4-Digit Image Key</label>
                 <input type="number" name="encryption_key" maxlength="4" required hidden />
             </td>

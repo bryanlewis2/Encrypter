@@ -44,6 +44,8 @@
     <Content Include="templates\imgpin.html" />
     <Content Include="templates\login.html" />
     <Content Include="templates\signup.html" />
+    <Content Include="templates\viewimage.html" />
+    <Content Include="templates\viewimagepasswordpage.html" />
     <Content Include="templates\welcome.html" />
   </ItemGroup>
   <ItemGroup>
