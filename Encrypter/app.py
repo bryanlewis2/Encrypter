@@ -1,8 +1,10 @@
 from os import waitpid
 import re
+from typing import IO
 from cryptography import fernet
 from flask import Flask, redirect, url_for, render_template, request, flash, Response
 from flask.helpers import make_response, send_file
+from io import BytesIO
 from flask.sessions import NullSession
 from flask.templating import render_template_string
 import cx_Oracle
@@ -262,20 +264,21 @@ def downloadimage():
         cursor.execute(execute, {'image_id':image_id, 'email':email})
         result = cursor.fetchone()
         for item in result:
-            str = ''
-            str = str + item
+            str1 = ''
+            str1 = str1 + item
         reverse_image_pass = image_pass[::-1]
         checksum = image_pass + reverse_image_pass
         checksum = hashlib.md5(checksum.encode())
         checksum = checksum.hexdigest()
 
-        x = re.search(checksum, str)
+        x = re.search(checksum, str1)
 
         if(x!= None):
-            image_string = str.replace(checksum, '')
+            image_string = str1.replace(checksum, '')
             imagedata = base64.b64decode(image_string)
-          
-            return send_file(imagedata , as_attachment=True)
+
+            return send_file(BytesIO(imagedata), mimetype='image/jpeg', as_attachment=True, attachment_filename= 'image.jpg')
+            return make_response(redirect('dashboard.html'))
             return "String Validated"
         else:
             return "Wrong Password"
