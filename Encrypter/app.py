@@ -190,9 +190,11 @@ def deleteaccount():
         except:
             return "An Error Ocurred"
 
-@app.route('/changepassword')
-def changepassowrd():
+@app.route('/changepassword', methods = ['POST'])
+def changepassword():
     email = request.cookies.get('email_id')
+    oldpassword = request.form.get('oldpassword')
+    newpassword = request.form.get('newpassword1')
     if email == None:
         return make_response(redirect('/loginpage'))
     else:
@@ -201,7 +203,23 @@ def changepassowrd():
             cursor = connect.cursor()
             execute = """SELECT password FROM User_Info WHERE email = :email"""
             cursor.execute(execute, {'email':email})
-            result = cursor.fetchall()
+            result = cursor.fetchone()
+            for db_password in result:
+                string = ''
+                string = string + db_password
+            oldencryptedpass = hashlib.md5(oldpassword.encode())
+            oldencryptedpass = oldencryptedpass.hexdigest()
+
+            if string == oldencryptedpass:
+                try:
+                    newencryptedpass = hashlib.md5(newpassword.encode())
+                    newencryptedpass = newencryptedpass.hexdigest()
+                    execute = """ UPDATE User_Info SET password = :password WHERE email = :email  """
+                    cursor.execute(execute, {'password': newencryptedpass, 'email': email})
+                    connect.commit()
+                    return make_response(redirect('/dashboardpage'))
+                except:
+                    return "Some Error Ocurred"
         except:
             return "An Error Ocurred"
 
@@ -233,18 +251,18 @@ def viewimage():
         result = cursor.fetchone()
         
         for item in result:
-            str = ''
-            str = str + item
+            string = ''
+            string = string + item
         
         reverse_image_pass = image_pass[::-1]
         checksum = image_pass + reverse_image_pass
         checksum = hashlib.md5(checksum.encode())
         checksum = checksum.hexdigest()
 
-        x = re.search(checksum, str)
+        x = re.search(checksum, string)
 
         if(x!= None):
-            image_string = str.replace(checksum, '')
+            image_string = string.replace(checksum, '')
             imagedata = base64.b64decode(image_string)
             return render_template('viewimage.html' , image_string = image_string)
     except:
