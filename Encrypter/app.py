@@ -2,7 +2,7 @@ from os import waitpid
 import re
 from typing import IO
 from cryptography import fernet
-from flask import Flask, redirect, url_for, render_template, request, flash, Response
+from flask import Flask, redirect, url_for, render_template, request, flash, Response, Blueprint
 from flask.helpers import make_response, send_file
 from io import BytesIO
 from flask.sessions import NullSession
