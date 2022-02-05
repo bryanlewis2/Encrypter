@@ -90,7 +90,6 @@ def dashboardpage():
 
 @app.route('/signup' , methods = ['POST'])
 def signup():
-    #first_name = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
     first_name = request.form.get("first_name")
     last_name = request.form.get("last_name")
     email = request.form.get("email_id")
@@ -101,11 +100,6 @@ def signup():
     #Encryption with MD5 Method
     encryptedpass = hashlib.md5(password.encode())
     encryptedpass = encryptedpass.hexdigest()
-
-    #Encryption with Bcrypt Method - Didn't Work
-    #salt = bcrypt.gensalt()
-    #str(salt, "utf-8")
-    #encryptedpass = bcrypt.hashpw(password.encode('utf-8'), bytes(salt))
 
     try:
         connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
@@ -130,12 +124,6 @@ def login():
     #Encryption with MD5 Method
     encryptedpass = hashlib.md5(password.encode())
     encryptedpass = encryptedpass.hexdigest()
-
-    #Encryption with Bcrypt Method - Didn't Work
-    #salt = bcrypt.gensalt()
-    #str(salt, "utf-8")
-    #encryptedpass = bcrypt.hashpw(password.encode('utf-8'), bytes(salt))
-    #encryptedpass = str(encryptedpass, 'UTF-8')
 
     try:
         connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
