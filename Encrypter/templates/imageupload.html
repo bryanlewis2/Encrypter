@@ -7,8 +7,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/static/javascript/templatejavascript.js"></script>
 </head>
 <body>
+    {% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
     <h3>Upload Image</h3>
     <form action="/imageupload" method="post" enctype="multipart/form-data">
         <label id="image_upload">Upload an Image</label><br /><br />
@@ -18,7 +31,7 @@
         <label id="default_pin">Use Default 4-Digit Pin?</label><br /><br />
 
         <label id="textlabel" hidden>Enter 4-Digit Encryption Key</label>
-        <input type="text" id="text_box" name="encryption_key" hidden/><br /><br />
+        <input type="text" id="text_box" name="encryption_key" hidden /><br /><br />
 
         <label id="img_name">Enter Image Name</label><br />
         <input type="text" id="img_text" name="image_name" /><br /><br />

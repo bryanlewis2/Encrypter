@@ -26,6 +26,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # The first argument is the name of the application module or package,
 # typically __name__ when using a single module.
 app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config['SECRET_KEY'] = '757-551-518'
 # Flask route decorators map / and /hello to the hello function.
 # To add other resources, create functions that generate the page contents
@@ -107,13 +108,19 @@ def signup():
         execute = """INSERT INTO User_Info VALUES (:first_name, :last_name, :email, :encryptedpass, :img_password)"""
         cursor.execute(execute, {'first_name':first_name, 'last_name':last_name, 'email':email, 'encryptedpass':encryptedpass, 'img_password':img_password})
         connect.commit()
+        flash('Account Created Successfully')
+        resp = make_response(redirect('/loginpage'))
+        return resp
     except cx_Oracle.IntegrityError:
-        return "Email Already Exists"
+        flash('This Email already Exists')
+        resp = make_response(redirect('/signuppage'))
+        return resp
     except:
-        return "An Error Ocurred"
+        flash('An Error Ocurred')
+        resp = make_response(redirect('/signuppage'))
+        return resp
     
-    resp = make_response(redirect('/loginpage'))
-    return resp
+    
 
     
 @app.route('/login', methods = ['POST'])
@@ -141,12 +148,14 @@ def login():
                 resp.set_cookie('img_pass', str_val)
                 return resp
             elif db_password != password:
-                return "Incorrect Password"
+                flash('Incorrect Password')
+                return make_response(redirect('/loginpage'))
             else:
-                return "Some Other Error Ocurred"
+                flash('Some Other Error Ocurred')
+                return make_response(redirect('/loginpage'))
     except:
-        return "Login Error Email or Password Error"
-    return "Successful"
+       flash('Incorrect Email or Password')
+    
 
 @app.route('/logout')
 def logout():
@@ -158,7 +167,7 @@ def logout():
         resp.set_cookie('img_pass', expires=0)
         return resp
     except:
-        return "An Error Ocurred"
+       flash('An Error Ocurred')
 
 @app.route('/deleteaccount')
 def deleteaccount():
@@ -175,8 +184,10 @@ def deleteaccount():
             execute = """DELETE FROM User_Images WHERE email = :email"""
             cursor.execute(execute, {'email':email})
             connect.commit()
+            flash('Account Deleted Successfully')
+            return make_response(redirect('/signuppage'))
         except:
-            return "An Error Ocurred"
+            flash('An Error Ocurred')
 
 @app.route('/changepassword', methods = ['POST'])
 def changepassword():
@@ -205,11 +216,12 @@ def changepassword():
                     execute = """ UPDATE User_Info SET password = :password WHERE email = :email  """
                     cursor.execute(execute, {'password': newencryptedpass, 'email': email})
                     connect.commit()
+                    flash('Password Changed Successfully')
                     return make_response(redirect('/dashboardpage'))
                 except:
-                    return "Some Error Ocurred"
+                    flash('Some Error Ocurred')
         except:
-            return "An Error Ocurred"
+            flash('An Error Ocurred')
 
 
 @app.route('/deleteimage/<image_id>', methods = ['GET' , 'POST'])
@@ -223,7 +235,7 @@ def deleteimage(image_id):
         connect.commit()
         return make_response(redirect('/dashboardpage'))
     except:
-        return "An Error Ocurred"
+        flash('An Error Ocurred')
 
 @app.route('/viewimage' , methods = ['POST'])
 def viewimage():
@@ -254,7 +266,7 @@ def viewimage():
             imagedata = base64.b64decode(image_string)
             return render_template('viewimage.html' , image_string = image_string)
     except:
-        return "An Error Ocurred"
+        flash('An Error Ocurred')
 
 @app.route('/downloadimage' , methods = ['POST'])
 def downloadimage():
@@ -284,17 +296,11 @@ def downloadimage():
             imagedata = base64.b64decode(image_string)
 
             return send_file(BytesIO(imagedata), mimetype='image/jpeg', as_attachment=True, attachment_filename= 'image.jpg')
-            return make_response(redirect('dashboard.html'))
-            return "String Validated"
         else:
-            return "Wrong Password"
-
-        return result
-
-        return "Download Image"
+            flash('Incorrect Image Password')
 
     except:
-        return "An Error Ocurred"
+        flash('An Error Ocurred')
 
 @app.route('/imageupload' , methods = ['POST'])
 def imageupload():
@@ -332,7 +338,7 @@ def imageupload():
         return make_response(redirect('/dashboardpage'))
 
     except:
-        return "An Error Ocurred"
+        flash('An Error Ocurred')
         
 
 

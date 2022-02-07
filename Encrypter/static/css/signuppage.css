@@ -1,0 +1,16 @@
+#form1 {
+    width: fit-content;
+    height: fit-content;
+    background-color: cornflowerblue;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 20px;
+}
+
+#signup {
+    text-align:center;
+}

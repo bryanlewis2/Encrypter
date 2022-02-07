@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+    <script src="/static/javascript/templatejavascript.js"></script>
     <script>
         function getimagepass() {
             document.getElementById('encryption_key').style.display = 'block';
@@ -15,6 +15,18 @@
     </script>
 </head>
 <body>
+    {% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
     <form action='/account_settings'>
         <input type="submit" value="Account Settings" /><br /><br />
     </form>

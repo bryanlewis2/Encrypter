@@ -33,16 +33,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="static\" />
     <Folder Include="templates\" />
+    <Folder Include="static\javascript\" />
+    <Folder Include="static\css\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="templates\about.html" />
     <Content Include="templates\accountsettings.html" />
     <Content Include="templates\changepassword.html" />
+    <Content Include="static\css\signuppage.css" />
     <Content Include="templates\dashboard.html" />
     <Content Include="templates\imagepasswordpage.html" />
     <Content Include="templates\imageupload.html" />
     <Content Include="templates\imgpin.html" />
+    <Content Include="static\javascript\templatejavascript.js" />
     <Content Include="templates\login.html" />
     <Content Include="templates\signup.html" />
     <Content Include="templates\viewimage.html" />
