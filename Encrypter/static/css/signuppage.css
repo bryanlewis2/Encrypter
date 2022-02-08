@@ -1,16 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 #form1 {
     width: fit-content;
     height: fit-content;
-    background-color: cornflowerblue;
+    background-color: white;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
-    padding: 20px;
+    padding: 2px;
+    margin-top:50px;
+    margin-right:50px;
+}
+#imgpassword {
+    padding-left: 15px;
+    letter-spacing: 42px;
+    border: 0;
+    background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-size: 50px 1px;
+    background-repeat: repeat-x;
+    background-position-x: 35px;
+    width: 200px;
+    outline: none;
+    align-content:center;
 }
 
 #signup {
     text-align:center;
+    margin-top:10px;
+    margin-bottom:20px;
+}
+
+#submitbutton {
+    
 }
