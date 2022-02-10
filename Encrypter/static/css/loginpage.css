@@ -1,0 +1,17 @@
+*{
+    margin:0;
+    padding:0;
+    background-image:src()
+    
+}
+
+#loginform {
+    width:fit-content;
+    padding: 20px;
+    margin-left: 41.5%;
+    background-color: navajowhite;
+}
+
+.lb-lg {
+    font-size: 18px;
+}

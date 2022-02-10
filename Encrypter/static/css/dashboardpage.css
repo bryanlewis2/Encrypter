@@ -1,0 +1,48 @@
+body {
+    background-image: src('images/dashboard_background.jpg');
+}
+
+h4{
+    color:#4094f0;
+    font-size: 50px;
+    margin-left:35%;
+    margin-bottom:80px;
+
+}
+
+.btn btn-dange {
+    
+}
+
+#about_text {
+    text-align:center;
+}
+
+table {
+    margin: 0 auto;
+}
+
+th{
+    width: 100px;
+    padding-left:80px;
+    padding-right:80px;
+    padding-bottom:20px;
+    padding-top:20px;
+}
+
+td {
+    text-align:center;
+}
+
+#header {
+    display:inline;
+}
+
+#myInput{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#bttn {
+    padding-bottom: 20px;
+}

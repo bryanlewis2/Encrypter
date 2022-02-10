@@ -1,13 +1,14 @@
 * {
     margin: 0;
     padding: 0;
+    background-color: white;
 }
 
 #form1 {
     width: fit-content;
     height: fit-content;
     background-color: white;
-    position: absolute;
+    position: center;
     top: 0;
     bottom: 0;
     left: 0;

@@ -22,8 +22,38 @@
             document.getElementById('encryption_key').style.display = 'block';
         }
     </script>
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="static/css/dashboardpage.css" />
 </head>
 <body>
+    <!--<img src="{{ url_for('static', filename = 'images/dashboard_background.jpg')}}" /> --->
+    
+    <div id="header">
+        <h1>Encrypter</h1>
+
+        <a id="about_text" href="/about" style="text-align:right;">About Encrypter</a>
+    </div>
+    
     {% block content %}
     <div class="container">
         {% for message in get_flashed_messages() %}
@@ -36,33 +66,28 @@
         {% block page_content %}{% endblock %}
     </div>
     {% endblock %}
-    <form action='/account_settings'>
-        <input type="submit" value="Account Settings" /><br /><br />
-    </form>
-    <form action="/imageuploadpage">
-        <input type="submit" value="Upload New Image" /><br /><br />
-    </form>
-    <form action="/logout">
-        <input type="submit" value="Log Out" /><br /><br />
-    </form>
-    <h1>
-        Welcome
-        {% for e in mylist %}
-        {{e}}
-        {% endfor %}
-    </h1><br /><br />
-    <table>
+    <h4>
+        Welcome {% for e in mylist %} {{e}} {% endfor %}
+    </h4>
+    <div id="bttn">
+        <a href="/account_settings" id="account_settings" class="btn btn-primary">Account Settings</a>
+        <a href="/imageuploadpage" id="image_upload" class="btn btn btn-warning">Upload New Image</a>
+        <a href="/logout" id="logout" class="btn btn-danger">Log Out</a>
+    </div>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for image names.." title="Type in a name">
+    <table id="myTable">
         <tr>
             <th hidden>Image ID</th>
-            <th>Image Name</th>
-            <th>Upload Date</th>
-            <th>Controls</th>
+            <th style="text-align:center; width:20%">Image Name</th>
+            <th style="text-align:center; width:30%">Upload Date</th>
+            <th style="text-align:center; width:50%">Controls</th>
 
         </tr>
         {% for r in result %}
         <tr>
             <td hidden>{{ r[0] }}</td>
-            <td>{{ r[1] }}</td>
+            <td style="text-align:center;">{{ r[1] }}</td>
             <td>{{ r[2] }}&nbsp;&nbsp;</td>
             <td>
                 <a href="/downloadimagepage/{{r[0]}}" class="btn btn-success" onclick="getimgpass();">Download</a>&nbsp;&nbsp;

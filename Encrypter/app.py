@@ -60,6 +60,10 @@ def accountsettings():
 def changepasswordpage():
     return render_template('changepassword.html')
 
+@app.route('/about')
+def aboutpage():
+    return render_template('about.html')
+
 @app.route('/downloadimagepage/<image_id>')
 def downloadimagepage(image_id):
     return render_template('imagepasswordpage.html', image_id = image_id)

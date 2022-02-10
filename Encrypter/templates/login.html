@@ -17,9 +17,10 @@
             }, 5000);
         });
     </script>
+    <link rel="stylesheet" href="static/css/loginpage.css" />
 </head>
 <body>
-    <h1>Login</h1><br />
+    <h1 style="text-align:center;">Login</h1><br />
 
     {% block content %}
     <div class="container">
@@ -35,15 +36,23 @@
     {% endblock %}
 
     <form action="/login" method="post">
-        <label id="emailid">Enter Email</label><br />
-        <input type="text" id="email" name="email_id" placeholder="Enter Email" /><br />
+        <div id="loginform">
+            <div id="inputs" >
+                <label class="lb-lg" for="email" id="emailid">Enter Email</label><br />
+                <input type="text" class="form-control input-lg" id="email" name="email_id" placeholder="Enter Email" required /><br />
 
-        <label id="pass">Enter Password</label><br />
-        <input type="password" id="password" name="password" placeholder="Enter Password" /><br /><br />
+                <label class="lb-lg" for="password" id="pass">Enter Password</label><br />
+                <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Enter Password" required/><br /><br />
+            </div>
 
-        <input type="submit" value="SUBMIT" /><br /><br />
+            <div id="loginbutton" style="text-align:center;">
+                <input class="text-center btn btn-primary" type="submit" value="SUBMIT" /><br /><br />
+            </div>
 
-        <a href="/signuppage">Do not have an account?, Sign Up here</a>
+            <div style="text-align:center;">
+                <a href="/signuppage">Do not have an account?, Sign Up here</a>
+            </div>
+        </div>
     </form>
 </body>
 </html>
