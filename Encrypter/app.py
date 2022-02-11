@@ -240,6 +240,7 @@ def deleteimage(image_id):
         return make_response(redirect('/dashboardpage'))
     except:
         flash('An Error Ocurred')
+        return make_response(redirect('/dashboardpage'))
 
 @app.route('/viewimage' , methods = ['POST'])
 def viewimage():
@@ -269,6 +270,9 @@ def viewimage():
             image_string = string.replace(checksum, '')
             imagedata = base64.b64decode(image_string)
             return render_template('viewimage.html' , image_string = image_string)
+        else:
+            flash('Incorrect Password')
+            return render_template('viewimagepasswordpage.html', image_id = image_id)
     except:
         flash('An Error Ocurred')
 
@@ -302,6 +306,7 @@ def downloadimage():
             return send_file(BytesIO(imagedata), mimetype='image/jpeg', as_attachment=True, attachment_filename= 'image.jpg')
         else:
             flash('Incorrect Image Password')
+            return render_template('imagepasswordpage.html', image_id = image_id)
 
     except:
         flash('An Error Ocurred')

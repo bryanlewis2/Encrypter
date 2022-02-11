@@ -80,8 +80,8 @@
         <tr>
             <th hidden>Image ID</th>
             <th style="text-align:center; width:20%">Image Name</th>
-            <th style="text-align:center; width:30%">Upload Date</th>
-            <th style="text-align:center; width:50%">Controls</th>
+            <th style="text-align:center; width:40%">Upload Date</th>
+            <th style="text-align:center; width:40%">Controls</th>
 
         </tr>
         {% for r in result %}
@@ -90,9 +90,9 @@
             <td style="text-align:center;">{{ r[1] }}</td>
             <td>{{ r[2] }}&nbsp;&nbsp;</td>
             <td>
-                <a href="/downloadimagepage/{{r[0]}}" class="btn btn-success" onclick="getimgpass();">Download</a>&nbsp;&nbsp;
-                <a href="/viewimagepage/{{r[0]}}" class="btn btn-primary" ">View</a>&nbsp;&nbsp;
-                <a href="/deleteimage/{{r[0]}}" class="btn btn-danger" ">Delete</a><br />
+                <a href="/downloadimagepage/{{r[0]}}" id="downloadimage" class="btn btn-success" onclick="getimgpass();">Download</a>&nbsp;&nbsp;
+                <a href="/viewimagepage/{{r[0]}}" id="viewimage" class="btn btn-primary" ">View</a>&nbsp;&nbsp;
+                <a href="/deleteimage/{{r[0]}}" id="deleteimage" class="btn btn-danger" ">Delete</a><br />
                 <label id="encryption_key" hidden>Enter 4-Digit Image Key</label>
                 <input type="number" name="encryption_key" maxlength="4" required hidden />
             </td>

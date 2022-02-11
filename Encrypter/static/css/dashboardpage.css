@@ -3,15 +3,11 @@ body {
 }
 
 h4{
-    color:#4094f0;
-    font-size: 50px;
+    color:#000000;
+    font-size: 40px;
     margin-left:35%;
     margin-bottom:80px;
 
-}
-
-.btn btn-dange {
-    
 }
 
 #about_text {
@@ -24,25 +20,49 @@ table {
 
 th{
     width: 100px;
-    padding-left:80px;
-    padding-right:80px;
+    padding-left:70px;
+    padding-right:70px;
     padding-bottom:20px;
     padding-top:20px;
+    font-size:20px;
 }
 
 td {
     text-align:center;
+    font-size:15px;
+    padding-bottom: 20px;
 }
 
 #header {
-    display:inline;
+    display:grid;
+    position:initial;
+    text-align:justify-all;
+    background-color:#b6ff00;
+   
 }
 
-#myInput{
-    padding-top: 20px;
+#myInput {
+    display: flex;
+    justify-content: right;
+    text-align: center;
+    padding-top: 10px;
     padding-bottom: 10px;
+    padding-left:10px;
+    padding-right:10px;
+    width: 250px;
+    margin: auto;
+}
+
+#downloadimage, #viewimage, #deleteimage {
+    width:110px;
 }
 
 #bttn {
-    padding-bottom: 20px;
+    display:flex;
+    justify-content:space-around;
+    padding-bottom:20px;
+}
+
+#account_settings, #image_upload, #logout {
+    width: 200px;
 }

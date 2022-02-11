@@ -8,10 +8,21 @@
 #loginform {
     width:fit-content;
     padding: 20px;
+    margin-top:20px;
     margin-left: 41.5%;
     background-color: navajowhite;
 }
 
-.lb-lg {
-    font-size: 18px;
+input {
+    width: 200px;
 }
+
+label {
+    font-size: 15px;
+}
+
+#email, #password {
+    width: 250px;
+    height: 40px;
+}
+
