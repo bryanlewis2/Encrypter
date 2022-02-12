@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript">
         $(document).ready(function () {
             window.setTimeout(function () {
@@ -47,13 +48,17 @@
 </head>
 <body>
     <!--<img src="{{ url_for('static', filename = 'images/dashboard_background.jpg')}}" /> --->
-    
-    <div id="header">
-        <h1>Encrypter</h1>
 
-        <a id="about_text" href="/about" style="text-align:right;">About Encrypter</a>
+    <div class="header">
+        <a href="#" class="logo">Encrypter</a>
+        <div class="header-right">
+            <a class="active" href="#" style="padding-left:20px; padding-right:20px;">Dashboard</a>
+            <a id="about_text" href="/static/html/about.html" style="padding-left:20px; padding-right:20px;">About</a>
+            <a id="tutorial" href="/static/html/tutorial.html" style="padding-left:20px; padding-right:20px;">How to Use</a>
+            <a id="contact" href="/static/html/contact.html" style="padding-left:20px; padding-right:20px;">Contact</a>
+        </div>
     </div>
-    
+
     {% block content %}
     <div class="container">
         {% for message in get_flashed_messages() %}
@@ -75,6 +80,7 @@
         <a href="/logout" id="logout" class="btn btn-danger">Log Out</a>
     </div>
 
+    <i class="fas fa-search"></i>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for image names.." title="Type in a name">
     <table id="myTable">
         <tr>

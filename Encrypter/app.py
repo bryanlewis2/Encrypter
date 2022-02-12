@@ -60,9 +60,6 @@ def accountsettings():
 def changepasswordpage():
     return render_template('changepassword.html')
 
-@app.route('/about')
-def aboutpage():
-    return render_template('about.html')
 
 @app.route('/downloadimagepage/<image_id>')
 def downloadimagepage(image_id):
@@ -155,10 +152,11 @@ def login():
                 flash('Incorrect Password')
                 return make_response(redirect('/loginpage'))
             else:
-                flash('Some Other Error Ocurred')
+                flash('Account Does not Exist')
                 return make_response(redirect('/loginpage'))
     except:
        flash('Incorrect Email or Password')
+       return make_response(redirect('/loginpage'))
     
 
 @app.route('/logout')
@@ -172,6 +170,7 @@ def logout():
         return resp
     except:
        flash('An Error Ocurred')
+       return make_response(redirect('/dashboardpage'))
 
 @app.route('/deleteaccount')
 def deleteaccount():
@@ -192,6 +191,7 @@ def deleteaccount():
             return make_response(redirect('/signuppage'))
         except:
             flash('An Error Ocurred')
+            return make_response(redirect('/dashboardpage'))
 
 @app.route('/changepassword', methods = ['POST'])
 def changepassword():
@@ -224,8 +224,10 @@ def changepassword():
                     return make_response(redirect('/dashboardpage'))
                 except:
                     flash('Some Error Ocurred')
+                    return make_response(redirect('/loginpage'))
         except:
             flash('An Error Ocurred')
+            return make_response(redirect('/dashboardpage'))
 
 
 @app.route('/deleteimage/<image_id>', methods = ['GET' , 'POST'])
@@ -348,6 +350,7 @@ def imageupload():
 
     except:
         flash('An Error Ocurred')
+        return make_response(redirect('/dashboardpage'))
         
 
 

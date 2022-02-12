@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Tutorial</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/dashboardpage.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .imgbox {
+            display: grid;
+            height: 100%;
+            width:100%;
+        }
+
+        .center-fit {
+            max-width: 100%;
+            max-height: 100vh;
+            margin: auto;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="#" class="logo">Encrypter</a>
+        <div class="header-right">
+            <a href="/dashboardpage" style="padding-left:20px; padding-right:20px;">Dashboard</a>
+            <a id="about_text" href="/static/html/about.html" style="padding-left:20px; padding-right:20px;">About</a>
+            <a class="active" id="tutorial" href="/static/html/tutorial.html" style="padding-left:20px; padding-right:20px;">How to Use</a>
+            <a id="contact" href="/static/html/contact.html" style="padding-left:20px; padding-right:20px;">Contact</a>
+        </div>
+    </div>
+
+    <div class="imgbox">
+        <img class="center-fit" src="../images/1.png" />
+        <img class="center-fit" src="../images/2.png" />
+    </div>
+</body>
+</html>

@@ -34,17 +34,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="static\" />
+    <Folder Include="static\html\" />
+    <Folder Include="static\images\" />
     <Folder Include="templates\" />
     <Folder Include="static\javascript\" />
     <Folder Include="static\css\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="static\html\contact.html" />
     <Content Include="static\css\accountcontrolspage.css" />
     <Content Include="static\css\dashboardpage.css" />
     <Content Include="static\css\imageuploadpage.css" />
     <Content Include="static\css\imgpasswordpage.css" />
     <Content Include="static\css\loginpage.css" />
-    <Content Include="templates\about.html" />
+    <Content Include="static\html\about.html" />
+    <Content Include="static\html\tutorial.html" />
+    <Content Include="static\images\1.png" />
+    <Content Include="static\images\2.png" />
+    <Content Include="static\images\search-solid.svg" />
     <Content Include="templates\accountsettings.html" />
     <Content Include="templates\changepassword.html" />
     <Content Include="static\css\signuppage.css" />
