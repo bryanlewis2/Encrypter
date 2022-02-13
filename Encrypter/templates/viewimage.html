@@ -4,11 +4,31 @@
 <head>
     <meta charset="utf-8" />
     <title>View Image</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        #dashboardpage {
+            display:block;
+            margin-left:45%;
+            text-align:center;
+            width:100px;
+            padding-top:40px;
+        }
+    </style>
 </head>
 <body>
-    <h3>Here's your image</h3><br /><br />
-    <div>
-        <img style="position:center; margin-top:20%;" src="data:image/png;base64, {{image_string}}" alt="User Image" />
+    <h2 style="text-align:center; margin-top:40px;">Here's your image</h2><br /><br />
+    <div id="image_box">
+        <div>
+            <img style="display:block; margin:0 auto; " src="data:image/png;base64, {{image_string}}" alt="User Image" />
+        </div>
+
+        <div id="dashboardpage">
+            <a href="/dashboardpage" class="btn btn-primary">Return to Dashboard</a>
+        </div>
     </div>
 </body>
 </html>

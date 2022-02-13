@@ -75,6 +75,7 @@ def dashboardpage():
     last_name = request.cookies.get('last_name')
     email = request.cookies.get('email_id')
     if first_name == None or last_name == None or email == None:
+        flash('Login into your Account!')
         resp = make_response(redirect('/loginpage'))
         return resp
     else:
@@ -97,7 +98,11 @@ def signup():
     email = request.form.get("email_id")
     password = request.form.get("password")
     #return render_template('imgpin.html')
-    img_password = request.form.get("img_pass")
+    input1 = request.form.get("input1")
+    input2 = request.form.get("input2")
+    input3 = request.form.get("input3")
+    input4 = request.form.get("input4")
+    img_password = input1 + input2 + input3 + input4
 
     #Encryption with MD5 Method
     encryptedpass = hashlib.md5(password.encode())
@@ -140,7 +145,7 @@ def login():
         cursor.execute(execute, {'email':email})
         for fname, lname, db_email, db_password, imgpass in cursor:
             str_val = str(imgpass)
-
+        if cursor!= None:
             if db_password == encryptedpass:
                 resp = make_response(redirect('/dashboardpage'))
                 resp.set_cookie('email_id', db_email)
@@ -152,10 +157,10 @@ def login():
                 flash('Incorrect Password')
                 return make_response(redirect('/loginpage'))
             else:
-                flash('Account Does not Exist')
+                flash('Incorrect Email or Password')
                 return make_response(redirect('/loginpage'))
     except:
-       flash('Incorrect Email or Password')
+       flash('Account does not Exist')
        return make_response(redirect('/loginpage'))
     
 
@@ -248,7 +253,11 @@ def deleteimage(image_id):
 def viewimage():
     try:
         image_id = request.form.get('image_id')
-        image_pass = request.form.get('image_pass')
+        input1 = request.form.get("input1")
+        input2 = request.form.get("input2")
+        input3 = request.form.get("input3")
+        input4 = request.form.get("input4")
+        image_pass = input1 + input2 + input3 + input4
 
         email = request.cookies.get('email_id')
         connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
@@ -283,7 +292,11 @@ def downloadimage():
     try:
         #return "Download Image"
         image_id = request.form.get('image_id')
-        image_pass = request.form.get('image_pass')
+        input1 = request.form.get("input1")
+        input2 = request.form.get("input2")
+        input3 = request.form.get("input3")
+        input4 = request.form.get("input4")
+        image_pass = input1 + input2 + input3 + input4
 
         email = request.cookies.get('email_id')
         connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
@@ -323,7 +336,11 @@ def imageupload():
         if encryption_pin == ['default']:
             img_pass = request.cookies.get('img_pass')
         else:
-            img_pass = request.form.get('encryption_key')
+            input1 = request.form.get("input1")
+            input2 = request.form.get("input2")
+            input3 = request.form.get("input3")
+            input4 = request.form.get("input4")
+            img_pass = input1 + input2 + input3 + input4
         image_name = request.form.get('image_name')
           
         email = request.cookies.get('email_id')

@@ -51,6 +51,10 @@
     <Content Include="static\html\tutorial.html" />
     <Content Include="static\images\1.png" />
     <Content Include="static\images\2.png" />
+    <Content Include="static\images\About-1.png" />
+    <Content Include="static\images\About-2.png" />
+    <Content Include="static\images\About-3.png" />
+    <Content Include="static\images\About-4.png" />
     <Content Include="static\images\search-solid.svg" />
     <Content Include="templates\accountsettings.html" />
     <Content Include="templates\changepassword.html" />

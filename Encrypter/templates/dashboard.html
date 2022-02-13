@@ -80,8 +80,7 @@
         <a href="/logout" id="logout" class="btn btn-danger">Log Out</a>
     </div>
 
-    <i class="fas fa-search"></i>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for image names.." title="Type in a name">
+    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for image names.." title="Type in a name"><br />
     <table id="myTable">
         <tr>
             <th hidden>Image ID</th>
@@ -91,7 +90,7 @@
 
         </tr>
         {% for r in result %}
-        <tr>
+        <tr id="rows">
             <td hidden>{{ r[0] }}</td>
             <td style="text-align:center;">{{ r[1] }}</td>
             <td>{{ r[2] }}&nbsp;&nbsp;</td>

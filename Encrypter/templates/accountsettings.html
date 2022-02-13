@@ -19,8 +19,18 @@
     </script>
 
     <link rel="stylesheet" href="static/css/accountcontrolspage.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dashboardpage.css') }}" />
 </head>
 <body>
+    <div class="header">
+        <a href="#" class="logo">Encrypter</a>
+        <div class="header-right">
+            <a href="/dashboardpage" style="padding-left:20px; padding-right:20px;">Dashboard</a>
+            <a id="about_text" href="/static/html/about.html" style="padding-left:20px; padding-right:20px;">About</a>
+            <a id="tutorial" href="/static/html/tutorial.html" style="padding-left:20px; padding-right:20px;">How to Use</a>
+            <a id="contact" href="/static/html/contact.html" style="padding-left:20px; padding-right:20px;">Contact</a>
+        </div>
+    </div>
 
     {% block content %}
     <div class="container">
@@ -34,11 +44,11 @@
         {% block page_content %}{% endblock %}
     </div>
     {% endblock %}
-    
+
     <h1>Account Settings</h1>
     <div id="account_controls">
         <a href="/changepasswordpage" id="change_password" class="btn btn-success">Change Password</a>
-        <a href="/deleteaccount" id="delete_account" class="btn btn-danger">Delete Account</a>
+        <a onclick="" id="delete_account" class="btn btn-danger">Delete Account</a>
     </div>
 
 </body>

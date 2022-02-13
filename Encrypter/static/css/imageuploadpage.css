@@ -1,8 +1,41 @@
-body
-{
-   
+form {
+    width:fit-content;
+    height:fit-content;
+    padding:20px;
+    margin-left:42%;
 }
 
-form {
-    position:center;
+#text_box, #img_text {
+    margin-left:5px;
+    width: 250px;
+    height: 40px;
+}
+
+#submit {
+    width: 250px;
+}
+
+label {
+    font-size:15px;
+    margin-left:5px;
+}
+
+form [type=checkbox] {
+    margin-left:25px;
+}
+
+#image_upload {
+    text-align:center;
+}
+
+#otp [type="text"] {
+    display: inline;
+    width: 40px;
+    height: 40px;
+    padding-left: 5px;
+}
+
+#otp {
+    margin-left: 30px;
+    padding-bottom: 20px;
 }
