@@ -6,11 +6,17 @@
 }
 
 #loginform {
-    width:fit-content;
+    width: fit-content;
     padding: 20px;
-    margin-top:20px;
+    margin-top: 20px;
     margin-left: 41.5%;
-    background-color: navajowhite;
+    background-color: #80808034;
+    background: rgba( 255, 255, 255, 0.8 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 input {
@@ -24,5 +30,9 @@ label {
 #email, #password {
     width: 250px;
     height: 40px;
+}
+
+body {
+    background-image: url('../images/marvin-meyer-SYTO3xs06fU-unsplash.jpg');
 }
 
