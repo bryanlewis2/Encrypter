@@ -7,13 +7,42 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/css/welcomepage.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dashboardpage.css') }}" />
 </head>
 <body>
-    <h2>Welcome to Encrypter</h2><br /><br />
-    <p>The most secure image encryption and backup system</p>
-    
-    <h4>Select an option to continue</h4><br /><br />
-    <a href="/loginpage">Login</a><br /><br />
-    <a href="/signuppage">Sign Up</a>
+    <div class="header">
+        <a href="#" class="logo">Encrypter</a>
+        <div class="header-right">
+            <a href="/dashboardpage" style="padding-left:20px; padding-right:20px;">Dashboard</a>
+            <a id="about_text" href="/static/html/about.html" style="padding-left:20px; padding-right:20px;">About</a>
+            <a id="tutorial" href="/static/html/tutorial.html" style="padding-left:20px; padding-right:20px;">How to Use</a>
+            <a id="contact" href="/static/html/contact.html" style="padding-left:20px; padding-right:20px;">Contact</a>
+        </div>
+    </div>
+
+    <div id="card">
+        <div id="title">
+            <h2>Welcome to Encrypter</h2>
+        </div>
+        <div id="tag">
+            <p>The most secure image encryption and backup system</p>
+        </div>
+
+        <div id="option">
+            <div id="option_tag">
+                <h3 id="option_text">Select an option to continue</h3>
+            </div>
+
+            <div id="links">
+                <div id="login_link">
+                    <a href="/loginpage" id="login_button" class="btn btn-primary">Login</a>
+                </div>
+                <div id="signup_link">
+                    <a href="/signuppage" id="signup_button" class="btn btn-success">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

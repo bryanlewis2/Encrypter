@@ -38,7 +38,7 @@ app.config['SECRET_KEY'] = '757-551-518'
 def welcome():
     # Render the page
  #   return render_template('imageupload.html')
-    return render_template('signup.html')
+    return render_template('welcome.html')
 
 @app.route('/signuppage')
 def signuppage():

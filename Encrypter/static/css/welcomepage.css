@@ -1,0 +1,56 @@
+body
+{
+    text-align:center;
+    background-image: url('../images/marvin-meyer-SYTO3xs06fU-unsplash.jpg');
+}
+
+h2{
+    margin-top:25px;
+    font-size:45px;
+}
+
+p {
+    font-size:20px;
+}
+
+#option_text {
+    margin-top: 50px;
+    padding-bottom:20px;
+}
+#card {
+    width: fit-content;
+    height: 400px;
+    padding: 20px;
+    display: block;
+    margin: auto;
+    background: rgba( 255, 255, 255, 0.8 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+#tag {
+    margin-top:30px;
+}
+
+#login_link {
+    text-align:center;
+    padding:30px;
+    float:left;
+    width: 50%;
+}
+
+#signup_link {
+    text-align:center;
+    padding:30px;
+    float: left;
+    width: 50%;
+}
+
+#login_button, #signup_button {
+    width:250px;
+    height:40px;
+    text-align:center;
+}

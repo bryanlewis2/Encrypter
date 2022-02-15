@@ -41,6 +41,7 @@
     <Folder Include="static\css\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="static\css\welcomepage.css" />
     <Content Include="static\html\contact.html" />
     <Content Include="static\css\accountcontrolspage.css" />
     <Content Include="static\css\dashboardpage.css" />
@@ -63,7 +64,6 @@
     <Content Include="templates\dashboard.html" />
     <Content Include="templates\imagepasswordpage.html" />
     <Content Include="templates\imageupload.html" />
-    <Content Include="templates\imgpin.html" />
     <Content Include="static\javascript\templatejavascript.js" />
     <Content Include="templates\login.html" />
     <Content Include="templates\signup.html" />
