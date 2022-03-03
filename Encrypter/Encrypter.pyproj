@@ -56,9 +56,13 @@
     <Content Include="static\images\About-2.png" />
     <Content Include="static\images\About-3.png" />
     <Content Include="static\images\About-4.png" />
+    <Content Include="static\images\facebook.png" />
+    <Content Include="static\images\instagram.png" />
     <Content Include="static\images\marvin-meyer-SYTO3xs06fU-unsplash.jpg" />
     <Content Include="static\images\search-solid.svg" />
+    <Content Include="static\images\twitter.png" />
     <Content Include="templates\accountsettings.html" />
+    <Content Include="templates\changename.html" />
     <Content Include="templates\changepassword.html" />
     <Content Include="static\css\signuppage.css" />
     <Content Include="templates\dashboard.html" />

@@ -60,6 +60,12 @@ def accountsettings():
 def changepasswordpage():
     return render_template('changepassword.html')
 
+@app.route('/changenamepage')
+def changenamepage():
+    first_name = request.cookies.get('first_name')
+    last_name = request.cookies.get('last_name')
+    return render_template('changename.html', first_name = first_name, last_name = last_name)
+
 
 @app.route('/downloadimagepage/<image_id>')
 def downloadimagepage(image_id):
@@ -75,7 +81,7 @@ def dashboardpage():
     last_name = request.cookies.get('last_name')
     email = request.cookies.get('email_id')
     if first_name == None or last_name == None or email == None:
-        flash('Login into your Account!')
+        flash('Login into your account to continue!')
         resp = make_response(redirect('/loginpage'))
         return resp
     else:
@@ -192,7 +198,7 @@ def deleteaccount():
             execute = """DELETE FROM User_Images WHERE email = :email"""
             cursor.execute(execute, {'email':email})
             connect.commit()
-            flash('Account Deleted Successfully')
+            flash('Account Deleted Successfully!')
             return make_response(redirect('/signuppage'))
         except:
             flash('An Error Ocurred')
@@ -233,6 +239,27 @@ def changepassword():
         except:
             flash('An Error Ocurred')
             return make_response(redirect('/dashboardpage'))
+
+@app.route('/changename', methods = ['POST'])
+def changename():
+    email = request.cookies.get('email_id')
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    try:
+        connect = cx_Oracle.connect("admin" , "adminpass" , "localhost:1521/xe")
+        cursor = connect.cursor() 
+        execute = """ UPDATE User_Info SET first_name = :first_name, last_name = :last_name   WHERE email = :email  """
+        cursor.execute(execute, {'first_name': first_name, 'last_name': last_name, 'email': email})
+        connect.commit()
+        flash('Name Changed Successfully')
+        resp = make_response(redirect('/dashboardpage'))
+        resp.set_cookie('first_name', first_name)
+        resp.set_cookie('last_name', last_name)
+        return resp
+    except:
+        flash('Some Error Ocurred')
+        return make_response(redirect('/dashboardpage'))
+
 
 
 @app.route('/deleteimage/<image_id>', methods = ['GET' , 'POST'])

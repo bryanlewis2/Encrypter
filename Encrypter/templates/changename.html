@@ -3,11 +3,10 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Account Settings</title>
+    <title>Change Name</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="/static/javascript/templatejavascript.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             window.setTimeout(function () {
@@ -17,20 +16,49 @@
             }, 5000);
         });
     </script>
+    <style>
+        #first_name, #last_name {
+            width: 250px;
+            height: 40px;
+        }
 
-    <link rel="stylesheet" href="static/css/accountcontrolspage.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dashboardpage.css') }}" />
+        #name_form {
+            width: fit-content;
+            height: fit-content;
+            padding: 20px;
+            margin-top: 50px;
+            margin-left: 41%;
+        }
+
+        #button {
+            margin-top: 30px;
+        }
+
+        #lastname {
+            margin-top: 20px;
+        }
+
+        input {
+            width: 200px;
+        }
+
+        label {
+            font-size: 15px;
+        }
+    </style>
+    <link rel="stylesheet" href="static/css/dashboardpage.css" />
 </head>
 <body>
     <div class="header">
         <a href="#" class="logo">Encrypter</a>
         <div class="header-right">
-            <a href="/dashboardpage" style="padding-left:20px; padding-right:20px;">Dashboard</a>
+            <a id="dashboard" href="/dashboardpage" style="padding-left:20px; padding-right:20px;">Dashboard</a>
             <a id="about_text" href="/static/html/about.html" style="padding-left:20px; padding-right:20px;">About</a>
             <a id="tutorial" href="/static/html/tutorial.html" style="padding-left:20px; padding-right:20px;">How to Use</a>
             <a id="contact" href="/static/html/contact.html" style="padding-left:20px; padding-right:20px;">Contact</a>
         </div>
     </div>
+
 
     {% block content %}
     <div class="container">
@@ -45,12 +73,22 @@
     </div>
     {% endblock %}
 
-    <h1>Account Settings</h1>
-    <div id="account_controls">
-        <a href="/changepasswordpage" id="change_password" class="btn btn-success">Change Password</a>
-        <a href="/changenamepage" id="change_name" class="btn btn-primary">Change Name</a>
-        <a href="/deleteaccount" id="delete_account" class="btn btn-danger">Delete Account</a>
-    </div>
+    <form action="/changename" method="post">
+       <div id="name_form">
+           <div id="firstname">
+               <label for="first_name">Edit First Name</label><br />
+               <input type="text" id="first_name" name="first_name" class="form-control" value="{{first_name}}" required />
+           </div>
 
+           <div id="lastname">
+               <label for="last_name">Edit Last Name</label><br />
+               <input type="text" id="last_name" name="last_name" class="form-control" value="{{last_name}}" required />
+           </div>
+
+            <div style="text-align:center;" id="button">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </div>
+    </form>
 </body>
 </html>
